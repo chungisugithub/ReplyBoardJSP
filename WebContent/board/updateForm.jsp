@@ -1,74 +1,109 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import = "board.BoardDBBean" %>
-<%@ page import = "board.BoardDataBean" %>
+	pageEncoding="UTF-8"%>
+<%@ page import="board.BoardDBBean"%>
+<%@ page import="board.BoardDataBean"%>
 <%@ include file="color.jspf"%>
 <html>
 <head>
-<title>게시판</title>
-<link href="style.css" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="script.js"></script>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="keywords" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="format-detection" content="telephone=no">
+<title>2016 굿모닝 경기 소통 크리에이터 공모전</title>
+<link rel="stylesheet" type="text/css" href="./css/general.css">
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript" src="./js/jquery.scrollTo-min.js"></script>
+<script src="./js/layout.js"></script>
+<!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 </head>
-<body bgcolor="<%=bodyback_c%>">
-<%
-  int num = Integer.parseInt(request.getParameter("num"));
-  String pageNum = request.getParameter("pageNum");
-  try{
-      BoardDBBean dbPro = BoardDBBean.getInstance(); 
-      BoardDataBean article =  dbPro.updateGetArticle(num);
+<body>
+	<%
+	int num = Integer.parseInt(request.getParameter("num"));
+	String pageNum = request.getParameter("pageNum");
+	try {
+		BoardDBBean dbPro = BoardDBBean.getInstance();
+		BoardDataBean article = dbPro.updateGetArticle(num);
+	%>
 
-%>
 
-<p>글수정</p>
-<br>
-<form method="post" name="writeform" 
-action="updatePro.jsp?pageNum=<%=pageNum%>" onsubmit="return writeSave()">
-<table>
-  <tr>
-    <td  width="70"  bgcolor="<%=value_c%>" align="center">이 름</td>
-    <td align="left" width="330">
-       <input type="text" size="10" maxlength="10" name="writer" 
-         value="<%=article.getWriter()%>" style="ime-mode:active;">
-	   <input type="hidden" name="num" value="<%=article.getNum()%>"></td>
-  </tr>
-  <tr>
-    <td  width="70"  bgcolor="<%=value_c%>" align="center" >제 목</td>
-    <td align="left" width="330">
-       <input type="text" size="40" maxlength="50" name="subject"
-        value="<%=article.getSubject()%>" style="ime-mode:active;"></td>
-  </tr>
-  <tr>
-    <td  width="70"  bgcolor="<%=value_c%>" align="center">Email</td>
-    <td align="left" width="330">
-       <input type="text" size="40" maxlength="30" name="email" 
-        value="<%=article.getEmail()%>" style="ime-mode:inactive;"></td>
-  </tr>
-  <tr>
-    <td  width="70"  bgcolor="<%=value_c%>" align="center" >내 용</td>
-    <td align="left" width="330">
-     <textarea name="content" rows="13" cols="40" 
-       style="ime-mode:active;"><%=article.getContent()%></textarea></td>
-  </tr>
-  <tr>
-    <td  width="70"  bgcolor="<%=value_c%>" align="center" >비밀번호</td>
-    <td align="left" width="330" >
-     <input type="password" size="8" maxlength="12" 
-               name="passwd" style="ime-mode:inactive;">
-     
-	 </td>
-  </tr>
-  <tr>      
-   <td colspan=2 bgcolor="<%=value_c%>" align="center"> 
-     <input type="submit" value="글수정" >  
-     <input type="reset" value="다시작성">
-     <input type="button" value="목록보기" 
-       onclick="document.location.href='list.jsp?pageNum=<%=pageNum%>'">
-   </td>
- </tr>
- </table>
-</form>
-<%
-}catch(Exception e){}%>      
-      
+	<div id="wrap">
+		<!-- @ CONTAINER -->
+		<section id="container" class="sub">
+			<!-- @ CONTENTS -->
+			<div id="contents">
+				<div class="sub-title-area">
+					<h2 class="tit">News & Info</h2>
+				</div>
+
+
+				<form method="post" name="writeform" action="updatePro.jsp?pageNum=<%=pageNum%>"
+					onsubmit="return writeSave()">
+					<input type="hidden" name="num" value="<%=num%>"> <input
+						type="hidden" name="passwd" value="1234">
+
+					<table class="basic_write">
+						<caption>News 입력</caption>
+						<colgroup>
+							<col style="width: 150px">
+							<col style="width: *">
+						</colgroup>
+						<tr>
+							<th>제목<span class="star">*</span></th>
+							<td><input class="add_txt" type="text" size="40"
+								maxlength="50" name="subject" value="<%=article.getSubject()%>"
+								style="ime-mode: active;"></td>
+						</tr>
+
+						<tr>
+							<th>작성자<span class="star">*</span></th>
+							<td><input type="text" size="10" maxlength="10"
+								name="writer" value="<%=article.getWriter()%>"
+								style="ime-mode: active;"></td>
+						</tr>
+
+
+						<tr>
+							<th>첨부파일</th>
+							<td><input type="file" title="첨부파일" name="" id=""
+								placeholder="학과/부서" class="name_txt"></td>
+						</tr>
+						<tr>
+							<th>내용 <span class="star">*</span></th>
+							<td><textarea name="content" rows="10" cols="30"
+									style="ime-mode: active; width: 100%"><%=article.getContent()%></textarea>
+
+							</td>
+						</tr>
+
+					</table>
+
+					<div class="btn_area"
+						style="margin-top: 60px; font-size: 13px; height: 40px; line-height: 40px; -webkit-border-radius: 4px; border-radius: 4px; padding: 0 17px;">
+						<input type="submit" class="btn_blue" value="확인"
+							style="width: 173px; line-height: 40px; border: 1px solid #f7941e; color: #fff; background: #f7941e;">
+						<input class="btn_blue_line" type="button" value="취소"
+							OnClick="window.location='list.jsp'"
+							style="width: 173px; line-height: 40px; color: #f7941e; border: 1px solid #f7941e;">
+					</div>
+					<%
+					} catch (Exception e) {
+					}
+					%>
+				</form>
+			</div>
+			<!-- CONTENTS @ -->
+		</section>
+		<!-- CONTAINER @ -->
+	</div>
+
+
+
+
+
+
 </body>
 </html>
