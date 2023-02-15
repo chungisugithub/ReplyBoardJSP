@@ -92,7 +92,7 @@ number = count - (currentPage - 1) * pageSize;
 						%>
 						<tr>
 							<td><%=number--%></td>
-							<td class="board_txt">
+							<td class="board_txt" style="text-align:left; padding-left:20px;">
 								<%
 								int wid = 0;
 								if (article.getRe_level() > 0) {
