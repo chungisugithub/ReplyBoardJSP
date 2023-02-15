@@ -104,7 +104,7 @@ number = count - (currentPage - 1) * pageSize;
 								<%
 								}
 								%> <a
-								href="content.jsp?num=<%=article.getNum()%>&pageNum=<%=currentPage%>">
+								href="view.jsp?num=<%=article.getNum()%>&pageNum=<%=currentPage%>">
 									<%=article.getSubject()%></a> <%
  if (article.getReadcount() >= 20) {
  %> <img src="images/hot.gif" border="0" height="16"> <%
