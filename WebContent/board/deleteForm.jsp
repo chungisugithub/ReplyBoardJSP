@@ -24,7 +24,7 @@
 -->
 </script>
 </head>
-<body bgcolor="<%=bodyback_c%>">
+<body>
 <p>글삭제</p>
 <br>
 <form method="POST" name="delForm" 

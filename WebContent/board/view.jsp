@@ -95,8 +95,13 @@
 						<input type="button" value="수정" class="btn_blue myButton"
 							onclick="document.location.href='updateForm.jsp?num=<%=article.getNum()%>&pageNum=<%=pageNum%>'">
 
+						<input type="button"
+							class="btn_blue myButton" value="답글" onclick="document.location.href='writeForm.jsp?num=<%=article.getNum()%>&ref=<%=ref%>&re_step=<%=re_step%>&re_level=<%=re_level%>'">
+
 						<input type="button" class="btn_blue myButton" value="삭제"
-							onclick="document.location.href='deleteForm.jsp?num=<%=article.getNum()%>&pageNum=<%=pageNum%>'">
+							onclick="deleteArticle(num)"> 
+						
+
 					</div>
 					<%
 					} catch (Exception e) {
@@ -109,5 +114,17 @@
 		<!-- CONTAINER @ -->
 	</div>
 
+<script>
+function deleteArticle(num) {
+	  BoardDBBean dbPro = BoardDBBean.getInstance(); 
+	  int check = dbPro.deleteArticle(num, "1234");
+	  if(check ==1) {
+		  window.location.href = "list.jsp";
+	  } else {
+		  alert("비밀번호가 맞지 않습니다");
+// 	         history.go(-1);
+	  }
+}
+</script>
 </body>
 </html>
